@@ -1,0 +1,42 @@
+import java.util.Scanner;
+import java.util.HashMap;
+public class TwoSumIndices {
+
+	public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter the numbers (space-separated): ");
+        String[] input = scanner.nextLine().split(" ");
+        int[] nums = new int[input.length];
+
+        for (int i = 0; i < input.length; i++) {
+            nums[i] = Integer.parseInt(input[i]);
+        }
+
+        System.out.print("Enter the target: ");
+        int target = scanner.nextInt();
+
+        int[] result = findTwoSum(nums, target);
+
+        if (result != null) {
+            System.out.println("The indices are " + result[0] + ", " + result[1]);
+            System.out.println("Because nums[" + result[0] + "] + nums[" + result[1] + "] = "
+                    + nums[result[0]] + " + " + nums[result[1]] + " = " + target);
+        } else {
+            System.out.println("No two numbers add up to the target.");
+        }
+    }
+
+    public static int[] findTwoSum(int[] nums, int target) {
+        HashMap<Integer, Integer> map = new HashMap<>(); 
+        for (int i = 0; i < nums.length; i++) {
+            int complement = target - nums[i];
+            if (map.containsKey(complement)) {
+                return new int[] { map.get(complement), i };
+            }
+            map.put(nums[i], i);
+        }
+        return null; 
+    }
+}
